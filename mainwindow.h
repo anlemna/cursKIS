@@ -33,9 +33,6 @@ public:
     QPushButton *yes = new QPushButton;
     QPushButton *no = new QPushButton;
 
-
-
-
 private slots:
     void on_tabWidget_tabBarClicked(int index);
 
@@ -68,6 +65,8 @@ private slots:
 
     void on_pushButton_10_clicked();
 
+    void on_pushButton_11_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
@@ -76,12 +75,15 @@ private:
     QSqlTableModel *model;
     QSqlTableModel *model1;
     QSqlTableModel *model2;
+    QSqlTableModel *model3;
 
 
 
     bool c_del;
     int idx;
     int row;
+    int row2;
+    int row3;
 };
 
 #endif // MAINWINDOW_H

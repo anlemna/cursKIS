@@ -29,7 +29,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Здравствуйте, Иван Иванович!</string>
+       <string>Добрый день! Приступим к работе!</string>
       </property>
      </widget>
     </item>
@@ -41,7 +41,7 @@
        </font>
       </property>
       <property name="text">
-       <string>2023-2024</string>
+       <string/>
       </property>
      </widget>
     </item>
@@ -62,7 +62,7 @@
        <attribute name="title">
         <string>Главная</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QLabel" name="label_3">
           <property name="font">
@@ -71,23 +71,17 @@
            </font>
           </property>
           <property name="text">
-           <string>Ниже будут публиковаться важные новости из мира университета:</string>
+           <string>Внимание! Подходит срок у следующих дисциплин:</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLabel" name="label_4">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color:rgb(235, 238, 255);</string>
-          </property>
+         <widget class="QTableView" name="tableView_4"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_11">
           <property name="text">
-           <string/>
+           <string>Узнать</string>
           </property>
          </widget>
         </item>
