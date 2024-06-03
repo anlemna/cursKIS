@@ -17,13 +17,14 @@ MainWindow::MainWindow(QWidget *parent) :
     else qDebug() <<"Connect!" ;
     qry = new QSqlQuery(db);
 
-    qry->exec("CREATE TABLE UMR('ВИД РАБОТ' TEXT, ОПИСАНИЕ TEXT, ПЛАН INT(3), СРОК DATE, СТАТУС TEXT )");
-    qry->exec("CREATE TABLE OMR('ВИД РАБОТ' TEXT, ОПИСАНИЕ TEXT, ПЛАН INT(3), СРОК DATE, СТАТУС TEXT)");
-    qry->exec("CREATE TABLE NIR('ВИД РАБОТ' TEXT, ОПИСАНИЕ TEXT, ПЛАН INT(3), СРОК DATE, СТАТУС TEXT)");
+    qry->exec("CREATE TABLE Umr('ВИД РАБОТ' TEXT, ОПИСАНИЕ TEXT, ПЛАН INT(3), СРОК DATE, СТАТУС TEXT )");
+    qry->exec("CREATE TABLE Omr('ВИД РАБОТ' TEXT, ОПИСАНИЕ TEXT, ПЛАН INT(3), СРОК DATE, СТАТУС TEXT)");
+    qry->exec("CREATE TABLE Nir('ВИД РАБОТ' TEXT, ОПИСАНИЕ TEXT, ПЛАН INT(3), СРОК DATE, СТАТУС TEXT)");
 
     model = new QSqlTableModel(this,db);
     model1 = new QSqlTableModel(this,db);
     model2 = new QSqlTableModel(this,db);
+    model3 = new QSqlTableModel(this,db);
 
     ui->tableView->setModel(model);
     ui->tableView->resizeColumnsToContents();
@@ -37,6 +38,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView_3->setModel(model2);
     ui->tableView_3->resizeColumnsToContents();
     ui->tableView_3->horizontalHeader()->setStretchLastSection(true);
+
+    ui->tableView_4->setModel(model3);
+    ui->tableView_4->resizeColumnsToContents();
+    ui->tableView_4->horizontalHeader()->setStretchLastSection(true);
 
     //подтверждение удаления
     connect(yes, &QPushButton::clicked,this, &MainWindow::yes_clicked);
@@ -65,19 +70,19 @@ void MainWindow::on_tabWidget_tabBarClicked(int index)
 {
     if (index==1)
     {
-        model->setTable("UMR");
+        model->setTable("Umr");
         model->select();
     }
 
     if (index==2)
     {
-        model1->setTable("OMR");
+        model1->setTable("Omr");
         model1->select();
     }
 
     if (index==3)
     {
-        model2->setTable("NIR");
+        model2->setTable("Nir");
         model2->select();
     }
 }
@@ -98,8 +103,8 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::yes_clicked()
 {
     model->removeRow(row);
-    model1->removeRow(row);
-    model2->removeRow(row);
+    model1->removeRow(row2);
+    model2->removeRow(row3);
     acc->close();
 }
 
@@ -115,7 +120,7 @@ void MainWindow::on_tableView_clicked(const QModelIndex &index)
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    model->setTable("UMR");
+    model->setTable("Umr");
     model->select();
 }
 
@@ -134,12 +139,12 @@ void MainWindow::on_pushButton_5_clicked()
 
 void MainWindow::on_tableView_2_clicked(const QModelIndex &index)
 {
-    row = index.row();
+    row2 = index.row();
 }
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    model1->setTable("OMR");
+    model1->setTable("Omr");
     model1->select();
 }
 
@@ -158,16 +163,26 @@ void MainWindow::on_pushButton_8_clicked()
 
 void MainWindow::on_tableView_3_clicked(const QModelIndex &index)
 {
-    row = index.row();
+    row3 = index.row();
 }
 
 void MainWindow::on_pushButton_9_clicked()
 {
-    model2->setTable("NIR");
+    model2->setTable("Nir");
     model2->select();
 }
 
 void MainWindow::on_pushButton_10_clicked()
 {
     QWidget::close();
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    model3->select();
+    QSqlQueryModel *model33 = new QSqlQueryModel;
+    model33->setQuery("SELECT * FROM Umr WHERE Umr.'СТАТУС'='в работе' UNION SELECT * FROM Omr WHERE Omr.'СТАТУС'='в работе' UNION SELECT * FROM Nir WHERE Nir.'СТАТУС'='в работе'");
+    ui->tableView_4->setModel(model33);
+
+
 }
